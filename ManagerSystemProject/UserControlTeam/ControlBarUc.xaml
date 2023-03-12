@@ -4,15 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:local="clr-namespace:ManagerSystemProject.UserControlTeam"
-             xmlns:i ="http://schemas.microsoft.com/expression/2010/interactivity"
+             
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              mc:Ignorable="d"
              Name="ucBar"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450"
              d:DesignWidth="800">
     <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Mou">
-            <i:InvokeCommandAction Command="{Binding ElementName=ucBar}" />
+        <i:EventTrigger EventName="MouseLeftButtonDown">
+            <i:InvokeCommandAction Command="{Binding MouseMoveWindownCommand}"
+                                   CommandParameter="{Binding ElementName=ucBar}" />
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -52,10 +54,10 @@
                     <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" />
                     <TextBlock Margin="16,0,0,0"
                                VerticalAlignment="Center"
-                               Text="Material Design In XAML Toolkit" />
+                               Text="{Binding Tag,ElementName=ucBar}" />
 
                 </StackPanel>
             </DockPanel>
         </materialDesign:ColorZone>
     </Grid>
-    </UserControl>
+</UserControl>

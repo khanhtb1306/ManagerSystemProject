@@ -9,17 +9,20 @@ using System.Windows.Input;
 
 namespace ManagerSystemProject.ViewModel
 {
-    public class ControlBarViewModel:BaseViewModel
+    public class ControlBarViewModel : BaseViewModel
     {
         public ICommand CloseWindownCommand { get; set; }
         public ICommand MaximiWindownCommand { get; set; }
         public ICommand MinimiWindownCommand { get; set; }
+        public ICommand MouseMoveWindownCommand { get; set; }
 
 
-        public ControlBarViewModel() {
-            CloseWindownCommand = new ReplayCommand<UserControl>((p) => { return p == null?false:true; },(p)=> { FrameworkElement windown = GetWindownParent(p);
+        public ControlBarViewModel()
+        {
+            CloseWindownCommand = new ReplayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) => {
+                FrameworkElement windown = GetWindownParent(p);
                 var w = windown as Window;
-                if(w != null)
+                if (w != null)
                 {
                     w.Close();
                 }
@@ -29,9 +32,9 @@ namespace ManagerSystemProject.ViewModel
                 var w = windown as Window;
                 if (w != null)
                 {
-                    if(w.WindowState != WindowState.Maximized)
+                    if (w.WindowState != WindowState.Maximized)
                     {
-                        w.WindowState  = WindowState.Maximized;
+                        w.WindowState = WindowState.Maximized;
                     }
                     else w.WindowState = WindowState.Normal;
                 }
@@ -46,6 +49,14 @@ namespace ManagerSystemProject.ViewModel
                         w.WindowState = WindowState.Minimized;
                     }
                     else w.WindowState = WindowState.Maximized;
+                }
+            });
+            MouseMoveWindownCommand = new ReplayCommand<UserControl>((p) => { return p == null ? false : true; }, (p) => {
+                FrameworkElement windown = GetWindownParent(p);
+                var w = windown as Window;
+                if (w != null)
+                {
+                    w.DragMove();
                 }
             });
         }
