@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ManagerSystemProject"
         xmlns:uc="clr-namespace:ManagerSystemProject.UserControlTeam"
+        
         mc:Ignorable="d"
         ResizeMode="NoResize"
         WindowStyle="None"
@@ -24,7 +25,7 @@
         DataContext="{StaticResource MainVM}">
     <i:Interaction.Triggers>
         <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedWindownCommand}" />
+            <i:InvokeCommandAction Command="{Binding LoadedWindownCommand}" CommandParameter="{Binding ElementName=Main}"/>
         </i:EventTrigger>
     </i:Interaction.Triggers>
     <Grid>
@@ -41,9 +42,78 @@
                 <RowDefinition></RowDefinition>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
+                <StackPanel HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Background="Transparent" Orientation="Horizontal">
+                    <StackPanel.Resources>
+                        <Style TargetType="Button">
+                            <Setter Property="Margin"
+                                    Value="2 4 2 4"></Setter>
+                            <Setter Property="Height" Value="50"></Setter>
+                            <Setter Property="Width"
+                                    Value="50"></Setter>
 
+                        </Style>
+                      
+                    </StackPanel.Resources>
+                    <Button ToolTip="" Background="LightGray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="Home" HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                         Kind="HomeOutline"></materialDesign:PackIcon>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button ToolTip=""
+                            Command="{Binding LoadProductWindowCommand}"
+                            Background="LightGray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="Product"
+                                           HorizontalAlignment="Center"
+                                           Height="16"
+                                           VerticalAlignment="Top"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                         Kind="PackageVariantClosed"></materialDesign:PackIcon>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    <Button ToolTip=""
+                            Background="LightGray">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="auto"></RowDefinition>
+                                <RowDefinition></RowDefinition>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <TextBlock Text="Bill"
+                                           HorizontalAlignment="Center"></TextBlock>
+                            </Grid>
+                            <Grid Grid.Row="1">
+                                <materialDesign:PackIcon HorizontalAlignment="Center"
+                                                         Kind="Cart"></materialDesign:PackIcon>
+                            </Grid>
+                        </Grid>
+                    </Button>
+                    
+                </StackPanel>
             </Grid>
             <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="47*" />
+                    <ColumnDefinition Width="203*" />
+                </Grid.ColumnDefinitions>
 
             </Grid>
         </Grid>

@@ -8,6 +8,7 @@
         Title="LoginWindown"
         Height="450"
         Width="800"
+        Name="Login"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
         TextElement.FontWeight="Regular"
@@ -18,7 +19,11 @@
         ResizeMode="NoResize"
         WindowStyle="None"
         WindowStartupLocation="CenterScreen"
-        FontFamily="{DynamicResource MaterialDesignFont}">
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        DataContext="{StaticResource LoginVM}"
+        xmlns:i="http://schemas.microsoft.com/xaml/behaviors">
+    
+
 
     <Grid>
         <Grid.RowDefinitions>
@@ -26,9 +31,11 @@
             <RowDefinition></RowDefinition>
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:ControlBarUc></uc:ControlBarUc>
+            <uc:ControlBarUc Tag="{Binding Title,ElementName=Login}"></uc:ControlBarUc>
+
         </Grid>
-        <materialDesign:Card Grid.Row="1" Height="250"
+        <materialDesign:Card Grid.Row="1"
+                             Height="250"
                              HorizontalAlignment="Center"
                              VerticalAlignment="Center"
                              Width="300">
@@ -46,6 +53,7 @@
                 </Grid.RowDefinitions>
                 <Grid Grid.Row="0">
                     <TextBox materialDesign:HintAssist.Hint="User Name"
+                             Text="{Binding UserName}"
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                 </Grid>
 
@@ -54,7 +62,14 @@
                                  Height="30"
                                  materialDesign:HintAssist.HelperText="At least 8 characters"
                                  materialDesign:HintAssist.Hint="Password"
-                                 materialDesign:TextFieldAssist.HasClearButton="True" />
+                                 materialDesign:TextFieldAssist.HasClearButton="True">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="PasswordChanged">
+                                <i:InvokeCommandAction Command="{Binding PasswordChangedCommand}"
+                                                       CommandParameter="{Binding ElementName=PasswordBox}" />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </PasswordBox>
                 </Grid>
                 <Grid Grid.Row="2">
                     <Grid.ColumnDefinitions>
@@ -63,15 +78,20 @@
 
                     </Grid.ColumnDefinitions>
                     <Grid Grid.Column="0">
-                        <Button 
-                                Content="Login"
+                        <Button Content="Login"
+                                IsDefault="True"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
-                                ToolTip="Resource name: MaterialDesignRaisedButton" />
+                                ToolTip="Resource name: MaterialDesignRaisedButton" 
+                                Command="{Binding LoginCommand}"
+                                CommandParameter ="{Binding ElementName=Login}"
+                                />
+                                
                     </Grid>
                     <Grid Grid.Column="1">
-                        <Button 
-                                Content="Exit"
+                        <Button Content="Exit"
+                                Command="{Binding CloseCommand}"
+                                CommandParameter="{Binding ElementName=Login}"
                                 IsEnabled="{Binding DataContext.ControlsEnabled, RelativeSource={RelativeSource FindAncestor, AncestorType=Window}}"
                                 Style="{StaticResource MaterialDesignRaisedButton}"
                                 ToolTip="Resource name: MaterialDesignRaisedButton" />
