@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ManagerSystemLibrary.DataAccess;
+using ManagerSystemLibrary.Repository;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +15,9 @@ namespace ManagerSystemProject.ViewModel
     {
         public ICommand LoadedWindownCommand { get; set; }
         public ICommand LoadProductWindowCommand { get; set; }
+        IProductRepository productRepository;
+        private IEnumerable<Product> products;
+        public IEnumerable<Product> Products { get { return products; } set { products = value; OnPropertyChanged(); } }
 
         public bool IsLoad = false;
         public MainViewModel()
@@ -25,8 +30,12 @@ namespace ManagerSystemProject.ViewModel
                 loginWindown.ShowDialog();
                 if (loginWindown == null) return;
                 var loginVM = loginWindown.DataContext as LoginViewModel;
-                
-                if (loginVM.IsLogin) p.Show();
+
+                if (loginVM.IsLogin)
+                {
+                    
+                    p.Show();
+                }
                 else p.Close();
             });
             LoadProductWindowCommand = new ReplayCommand<Window>((p) => { return true; }, (p) => {
