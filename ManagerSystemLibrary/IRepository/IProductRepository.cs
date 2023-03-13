@@ -12,5 +12,11 @@ namespace ManagerSystemLibrary.Repository
     {
         IEnumerable<Product> GetProducts();
         void InsertProduct(Product product);
+        void UpdateProduct(Product product);
+        void DeleteProduct(Product product);
+        Product GetProductById(int id);
+        IEnumerable<Product> GetProductsOrderBy(string property);
+       
+
     }
 }

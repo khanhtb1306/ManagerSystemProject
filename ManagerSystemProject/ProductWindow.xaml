@@ -6,8 +6,8 @@
         xmlns:local="clr-namespace:ManagerSystemProject"
         mc:Ignorable="d"
         Title="ProductWindow"
-        Height="450"
-        Width="900"
+        Height="543"
+        Width="923"
         Name="Product"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -34,7 +34,8 @@
 
         </Grid.RowDefinitions>
         <Grid Grid.Row="0">
-            <uc:ControlBarUc Tag="{Binding Title,ElementName=Product}"></uc:ControlBarUc>
+            <!--<uc:ControlBarUc Tag="{Binding Title,ElementName=Product}"></uc:ControlBarUc>-->
+
         </Grid>
         <Grid Grid.Row="1">
             <Grid.RowDefinitions>
@@ -63,7 +64,7 @@
                              Style="{StaticResource MaterialDesignFloatingHintTextBox}" />
                     <DatePicker Name="LocaleDatePicker"
                                 Width="220"
-                                SelectedDate="{Binding DateAdd}"
+                                SelectedDate="{Binding DateAdd, StringFormat='MM-dd-yyyy'}"
                                 materialDesign:HintAssist.Hint="DateAdd" />
                     <TextBox Width="220"
                              Text="{Binding Image}"
@@ -87,10 +88,33 @@
                             Command="{Binding AddCommand}"
                             Margin="5"></Button>
                     <Button Content="Delete"
+                            Command="{Binding DeleteCommand}"
                             Margin="5"></Button>
-
                     <Button Content="Update"
+                            Command="{Binding UpdateCommand}"
                             Margin="5"></Button>
+                    <Button Content="Import Excel"
+                            Command="{Binding ImportExcel}"
+                            Margin="5"></Button>
+                    <ComboBox Width="256"
+                              x:Name="ComboBox"
+                              ItemsSource="{Binding ComboItems}"
+                              SelectedItem="{Binding SelectedItem,Mode=TwoWay,UpdateSourceTrigger=PropertyChanged}"
+                              materialDesign:HintAssist.Hint="Choose"
+                              Style="{StaticResource MaterialDesignOutlinedComboBox}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="SelectionChanged">
+                                <i:InvokeCommandAction Command="{Binding SelectedItemChangedCommand}"
+                                                  CommandParameter="{Binding ElementName=ComboBox}"     
+                                                       />
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                        <!--<ComboBoxItem Content="ImportPrice" />
+                        <ComboBoxItem Content="SellPrice" />
+                        <ComboBoxItem Content="Number" />
+                        <ComboBoxItem Content="Best seller" />
+                        <ComboBoxItem Content="New product" />-->
+                    </ComboBox>
                 </WrapPanel>
             </materialDesign:Card>
 
@@ -98,8 +122,9 @@
                                  Margin="10"
                                  VerticalAlignment="Center">
                 <ListView ItemsSource="{Binding Products}"
-                          SelectedItem="{Binding Product,Mode=OneWayToSource}"
-                         >
+                          Width="Auto"
+                          Height="276"
+                          SelectedItem="{Binding Product,Mode=OneWayToSource}">
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListViewItem">
                             <Setter Property="HorizontalContentAlignment"
@@ -109,8 +134,7 @@
                     <ListView.View>
 
                         <GridView>
-                            <GridViewColumn
-                                Header="ProductId"
+                            <GridViewColumn Header="ProductId"
                                             Width="auto"
                                             DisplayMemberBinding="{Binding ProductId}"></GridViewColumn>
                             <GridViewColumn Header="ProductName"
@@ -127,7 +151,7 @@
                                             DisplayMemberBinding="{Binding NumberOfInventoty}"></GridViewColumn>
                             <GridViewColumn Header="DateAdd"
                                             Width="auto"
-                                            DisplayMemberBinding="{Binding DateAdd}"></GridViewColumn>
+                                            DisplayMemberBinding="{Binding DateAdd,StringFormat='MM-dd-yyyy'}"></GridViewColumn>
                             <GridViewColumn Header="Image"
                                             Width="auto"
                                             DisplayMemberBinding="{Binding Image}"></GridViewColumn>

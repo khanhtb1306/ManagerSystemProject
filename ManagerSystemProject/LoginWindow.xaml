@@ -43,7 +43,7 @@
                 <Grid.Resources>
                     <Style TargetType="Grid">
                         <Setter Property="Margin"
-                                Value="15 5 15 0"></Setter>
+                                Value="15 0 15 0"></Setter>
                     </Style>
                 </Grid.Resources>
                 <Grid.RowDefinitions>
